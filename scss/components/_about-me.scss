@@ -1,0 +1,22 @@
+.about-me {
+  border: 1px solid darken($secondary-color, 5%);
+  @include radius($global-radius);
+  box-shadow: 1px 1px 8px rgba(0,0,0, .1);
+  text-align: center;
+  background: #fff;
+  margin-top: 18px;
+  @media #{$medium-up} {
+    margin-top: 40px;
+  }
+}
+.about-me-info {
+  padding: 24px;
+  p {
+    font-size: rem-calc(18);
+    color: darken($secondary-color, 50%);
+  }
+  @media (max-width: 40em) and (orientation: landscape) {
+    h1 { font-size: rem-calc(42); }
+    p { font-size: rem-calc(16); }
+  }
+}

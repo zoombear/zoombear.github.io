@@ -1,0 +1,23 @@
+.avatar {
+  @include radius(100%);
+  padding: 4px;
+  background: #fff;
+  border: 1px solid darken($primary-color, 10%);
+  box-shadow: 0 1px 8px rgba(0,0,0, .2);
+  max-width: 120px;
+  display: block;
+  margin: 12px auto;
+}
+.avatar-wrap {
+  padding: 24px;
+  background: image-url("orion.jpg") 0 -100px;
+  background-size: cover;
+  max-height: 100px;
+  -webkit-border-top-left-radius: $global-radius;
+  -webkit-border-top-right-radius: $global-radius;
+  -moz-border-radius-topleft: $global-radius;
+  -moz-border-radius-topright: $global-radius;
+  border-top-left-radius: $global-radius;
+  border-top-right-radius: $global-radius;
+  margin-bottom: 42px;
+}
