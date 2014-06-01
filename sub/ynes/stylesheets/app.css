@@ -9542,3 +9542,8 @@ footer .inline-list,
 footer p {
   margin-bottom: 0;
 }
+
+/* line 1, ../scss/components/_img.scss */
+.image-tall {
+  max-height: 200px;
+}
