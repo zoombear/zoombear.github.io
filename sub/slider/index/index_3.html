@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gross Metropolitan Products of USA</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css" media="screen" />
+    <!--<link rel="stylesheet" href="../css/style1.css" media="screen" />-->
+    <link rel="stylesheet" href="../css/page.css">
+    <link rel="stylesheet" href="../css/anythingslider.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/dc.css"/>
+    <style type="text/css">
+      .dc-chart .symbol{
+          stroke: none;
+          fill:#808080;
+          opacity:0.2;
+      }
+      table{
+        max-width: 85%;
+      }
+      #slider { width: 700px; height: 390px; }
+
+      #dc-line-chart{
+        margin: 25px 0 0 65px;
+      }
+      #dc-scatter-plot{
+        margin: 25px 0 0 65px;
+      }
+      #dc-pie-chart{
+        margin: 25px 0 0 165px;
+      }
+      #dc-gmp-chart{
+        margin: 25px 0 0 65px;
+      }
+    </style>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../js/jquery.min.js"><\/script>')</script>
+  <script src="../js/jquery.anythingslider.js"></script> 
+  <script>
+    // DOM Ready
+    $(function(){
+      $('#slider').anythingSlider({
+          buildStartStop :false,
+          //navigationSize      : 5,
+          navigationFormatter : function(index, panel){ // Format navigation labels with text
+          return ['Line-Chart', 'Scatter-Plot', 'Pie-Chart', 'Bar-Chart', 'Table-Chart'][index - 1];},
+          
+          onSlideBegin: function(e,slider) {
+          // keep the current navigation tab in view
+          slider.navWindow( slider.targetPage );
+        }
+      });
+    });
+  </script>    
+</head>
+
+<body>
+<ul id="slider">
+
+    <li><div id="dc-line-chart"><h4 style="margin-left:220px">GMP By Year</h4></div></li>
+
+    <li><div id="dc-scatter-plot"><h4 style="margin-left:182px">GMP by Population</h4></div></li>
+
+    <li><div id="dc-pie-chart"><h4 style="margin-left:65px">GMP by Region</h4></div></li>
+
+    <li><div id="dc-gmp-chart"> <h4 style="margin-left:190px">Distribution of GMP</h4></div></li>
+
+    <li><div id='dc-table-graph'>
+    <table class='table table-hover' id='dc-table-graph'>
+        <thead>
+          <tr class='header'>
+           <th>Geographical Name</th>
+            <th>Gross Metropolitan Product</th>
+            <th>Population (millions)</th>
+            <th>Year</th>
+            <th>Region</th>
+          </tr>
+        </thead>
+    </table>
+    </div></li>
+</ul>
+
+
+<script type="text/javascript" src="../js/d3.js"></script>
+<script type="text/javascript" src="../js/crossfilter.js"></script>
+<script type="text/javascript" src="../js/dc.js"></script>
+<script type="text/javascript">
+
+  var magnitudeChart = dc.barChart("#dc-gmp-chart");//#dc-gmp-chart
+  var linechart = dc.lineChart("#dc-line-chart");
+  var dataTable = dc.dataTable("#dc-table-graph");
+  var piechart = dc.pieChart("#dc-pie-chart");
+  var sctrPlot = dc.scatterPlot("#dc-scatter-plot");
+
+// use static or load via d3.csv("spendData.csv", function(error, spendData) {/* do stuff */});
+d3.json("data.json", function (data) {
+
+  data.forEach(function(d) { 
+    d.year   = +d.Yr;
+    d.gmp   = +d.GMP; 
+    d.pop  = +d.POP;
+    d.name   = d.GeoName;
+    d.region = d.Region;
+  });
+
+// set crossfilter
+var facts = crossfilter(data);
+   
+var magValue = facts.dimension(function (d){return d.gmp; });    // group or filter by magnitude
+  
+var magValueGroupSum = magValue.group().reduceSum(function(d) { return d.gmp; });  // sums the magnitudes per magnitude
+var magValueGroupCount = magValue.group().reduceCount(function(d) { return d.gmp; });
+
+var timeDimension = facts.dimension(function (d){return d.year;}); // group or filter by time
+  
+var gmpByYear = timeDimension.group().reduceSum(function (d){return d.gmp;});
+  // for Depth
+var depthValue = facts.dimension(function (d){return d.region;});
+
+var depthValueGroup = depthValue.group();
+  
+var scatDimension2 = facts.dimension(function (d) {return [d.pop, d.gmp];});
+
+var scatSumGroup2 = scatDimension2.group().reduceSum(function (d) { return d.gmp; });
+
+  /* define a daily volume Dimension
+  var volumeByDay = facts.dimension(function(d) {
+    return d.pop;
+  });
+  // map/reduce to group sum
+  var volumeByDayGroup = volumeByDay.group()
+    .reduceCount(function(d) { return d.pop; });*/
+
+
+
+magnitudeChart.width(480)
+    .height(250)
+    .margins({top: 10, right: 10, bottom: 20, left: 30})
+    .dimension(magValue)                                // the values across the x axis
+    .group(magValueGroupCount)                          // the values on the y axis
+    .transitionDuration(500)
+    .centerBar(true)    
+    .gap(56)                                    // bar width Keep increasing to get right then back off.
+    .x(d3.scale.log().nice().domain([1000, 100000000]))
+    .elasticY(true)
+    .xAxis().ticks(5,function(d) { return 10 + formatPower(Math.round(Math.log(d) / Math.LN10)); });
+  
+
+linechart.width(480)
+    .height(250)
+    .margins({top: 10, right: 5, bottom: 20, left: 65})
+    .dimension(timeDimension)
+    .group(gmpByYear)
+    .transitionDuration(500)
+    .x(d3.scale.linear().nice().domain([2001, 2013]))
+    .y(d3.scale.linear().domain([18000000,30000000]))
+    .elasticY(true)
+    .xAxis().tickFormat();
+
+   piechart.width(250)
+    .height(220)
+    .radius(80)
+    .innerRadius(10)
+    .dimension(depthValue)
+    .group(depthValueGroup)
+    .title(function (d){return d.value;});
+
+dataTable.width(960).height(800)
+    .dimension(timeDimension)
+    .group(function(d) { return "List of all earthquakes corresponding to the filters"})
+    .size(5)                           // number of rows to return
+    .columns([
+      function(d) { return d.name; },
+      function(d) { return d.gmp; },
+      function(d) { return d.pop; },
+      function(d) { return d.year; },
+      function(d) { return d.region; } 
+    ])
+    .sortBy(function(d){ return d.year; })
+    .order(d3.ascending);
+
+sctrPlot.width(480)
+    .height(250)
+    .margins({top: 10, right: 10, bottom: 20, left: 40})
+    .x(d3.scale.log().domain([.02, 100000]))
+    .y(d3.scale.log().domain([100, 100000000]))
+    .brushOn(true)
+    //.elasticY(true)
+    .elasticX(true)
+    .dimension(scatDimension2)
+    .group(scatSumGroup2)
+    //.renderlet(colorRenderlet)
+    .xAxis().ticks(5,function(d) { return 10 + formatPower(Math.round(Math.log(d) / Math.LN10)); });
+
+
+dc.renderAll();
+
+});
+
+var superscript = "⁰¹²³⁴⁵⁶⁷⁸⁹",
+    formatPower = function(d) { return (d + "").split("").map(function(c) { return superscript[c]; }).join(""); };
+
+</script>
+
+</body>
+</html>
