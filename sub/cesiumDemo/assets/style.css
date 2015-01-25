@@ -841,3 +841,18 @@ hr.soften-right {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+.thumbnail-wrapper {
+  height: 140px;
+  overflow: hidden;
+}
+.media-object {
+  margin-bottom: 12px;
+  display: block;
+}
+.media-object img {
+  height: 72px;
+  width: auto;
+  -webkit-filter: grayscale(100%); filter: grayscale(100%);
+  filter: grayscale(100%);
+}
