@@ -5,7 +5,7 @@ But for now we're just going to throw some data in there. <!-- .element: class="
 
 ```
 var user = {
-    name: 'Dan Lucas',
+    name: 'Vanessa Archambault',
     status: 'primary'
 };
 ```
@@ -38,7 +38,7 @@ Then assign the data to a property
     });
 
     var user = {
-        name: 'Dan Lucas',
+        name: 'Vanessa Archambault',
         status: 'primary'
     };
 })();

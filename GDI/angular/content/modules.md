@@ -36,11 +36,11 @@ And in our HTML file
 <!DOCTYPE HTML>
 <html ng-app="collection">
     <head>
-        <link rel="stylesheet" type="text/css" href="boostrap.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
     </head>
     <body>
         <!--
-        <script type="text/javascript" src="angular.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
         <script type="text/javascript" src="app.js"></script>
         -->
     </body>
