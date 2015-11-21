@@ -116,7 +116,7 @@ app.directive('itemPanels', function(){
                 return this.tab === checkTab;
             };
         },
-        controllerAs: 'panels'
+        controllerAs: 'panel'
     };
 });
 ```

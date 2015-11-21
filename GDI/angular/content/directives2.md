@@ -5,21 +5,21 @@
 ## While you were gone
 ```
 {
-    name: "Marvel's The Avengers",
-    gross: 1518.6,
-    release: new Date('2012-05-04'),
+    name: "Sound of Music",
+    gross: 163.2,
+    release: new Date('1965-03-29'),
     inCollection: true,
-    shortDescription: 'Superheros destroy city while fighthing a Norse god and some aliensl',
+    shortDescription: 'A woman leaves an Austrian convent to become a governess to the children of a Naval officer Widower.',
     actors: [
-        "Robert Downey, Jr.",
-        "Chris Hemsworth",
-        "Chris Evans",
-        "Jeremy Renner",
-        "Mark Ruffalo",
-        "Scarlett Johansson",
+        "Julie Andrews",
+        "Christopher Plummer",
+        "Eleanor Parker",
+        "Richard Haydn",
+        "Peggy Wood",
+        "Charmian Carr",
         ...
     ],
-    longDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    longDescription: "A tuneful, heartwarming story, it is based on the real life story of the Von Trapp Family singers, one of the world's best-known concert groups in the era immediately preceding World War II. Julie Andrews plays the role of Maria, the tomboyish postulant at an Austrian abbey who becomes a governess in the home of a widowed naval captain with seven children, and brings a new love of life and music into the home."
 }
 ```
 

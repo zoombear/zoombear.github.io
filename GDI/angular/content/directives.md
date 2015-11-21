@@ -1,3 +1,23 @@
+## More Data
+```
+var movie = {
+    name: "Sound of Music",
+    gross: 163.2,
+    release: new Date('1965-03-29'),
+    inCollection: true,
+    shortDescription: 'A woman leaves an Austrian convent to become a governess to the children of a Naval officer Widower.'
+};
+```
+
+```
+app.controller('CollectionController', function(){
+    this.item = movie;
+});
+```
+
+Note: Bad way: collection.item[0].name, etc.
+
+
 ## Adding functionality
 ```
 <div ng-controller="CollectionController as collection">
@@ -23,11 +43,11 @@ Note: Let's say I want to expand my collection to hold movies that I don't own. 
 ## Adding Functionality: ngshow directive
 ```
 var movie = {
-    name: "Marvel's The Avengers",
-    gross: 1518.6,
-    release: new Date('2012-05-04'),
-    shortDescription: 'Superheros destroy city while fighting a Norse god and some aliens',
-    inCollection: true
+    name: "Sound of Music",
+    gross: 163.2,
+    release: new Date('1965-03-29'),
+    inCollection: true,
+    shortDescription: 'A woman leaves an Austrian convent to become a governess to the children of a Naval officer Widower.'
 };
 ```
 
@@ -52,11 +72,11 @@ var movie = {
 ## Adding Functionality: NgHide Directive
 ```
 var movie = {
-    name: "Marvel's The Avengers",
-    gross: 1518.6,
-    release: new Date('2012-05-04'),
-    shortDescription: 'Superheros destroy city while fighting a Norse god and some aliens',
+    name: "Sound of Music",
+    gross: 163.2,
+    release: new Date('1965-03-29'),
     inCollection: true,
+    shortDescription: 'A woman leaves an Austrian convent to become a governess to the children of a Naval officer Widower.',
     guiltyPleasure: false
 };
 ```
@@ -82,47 +102,80 @@ Note: When you want to hide something when a condition is true
 IE. You want to hide your guilty pleasure films
 
 
+## Filters
+Let's clean up that [date](https://docs.angularjs.org/api/ng/filter/date)
+```
+<div ng-controller="CollectionController as collection">
+    <div>
+        <h2>
+            {{collection.item.name}}
+            <span>{{collection.item.release | date:'mediumDate'}}</span>
+        </h2>
+        <h3>International Gross: ${{collection.item.gross}}<h3>
+        <div>
+            <p>{{collection.item.shortDescription}}</p>
+        </div>
+    </div>
+</div>
+```
 
-## More Data
+Note:
+- Well that's all nice but what's with that date, tho?
+sample custom filter
+myApp.filter('reverse', function () {
+  return function (text) {
+    return text.split("").reverse().join("");
+  }
+});
+
+
+## Filters
+And the revenue
 ```
-var movie = {
-    name: "Marvel's The Avengers",
-    gross: 1518.6,
-    release: new Date('2012-05-04'),
-    inCollection: true,
-    shortDescription: 'Superheros destroy city while fighthing a Norse god and some aliens',
-};
+<div ng-controller="CollectionController as collection">
+    <div>
+        <h2>
+            {{collection.item.name}}
+            <span>{{collection.item.release | date:'mediumDate'}}</span>
+        </h2>
+        <h3>International Gross: ${{collection.item.gross * 1000000 | currency:'$' }}<h3>
+        <div>
+            <p>{{collection.item.shortDescription}}</p>
+        </div>
+    </div>
+</div>
 ```
+
+
+## More Built-in Filters
+[https://docs.angularjs.org/api/ng/filter](https://docs.angularjs.org/api/ng/filter)
 
 
 ## More Data
 ```
 var movies = [
     {
-        name: "Marvel's The Avengers",
-        gross: 1518.6,
-        release: new Date('2012-05-04'),
+        name: "Sound of Music",
+        gross: 163.2,
+        release: new Date('1965-03-29'),
         inCollection: true,
-        shortDescription: 'Superheros destroy city while fighthing a Norse god and some aliens',
+        shortDescription: 'A woman leaves an Austrian convent to become a governess to the children of a Naval officer Widower.'
     },
     {
-        name: "Ironman",
-        gross: 318.4,
-        release: new Date('2008-02-05'),
+        name: "Mary Poppins",
+        gross: 102.3,
+        release: new Date('1964-09-11'),
         inCollection: false,
-        shortDescription: 'Billionaire genius invents portable fusion reactor, uses it to build flying suit'
+        shortDescription: "A magic nanny comes to work for a cold banker's unhappy family",
     }
 ];
 
 ```
-
 ```
 app.controller('CollectionController', function(){
     this.items = movies;
 });
 ```
-
-Note: Bad way: collection.item[0].name, etc.
 
 
 ## NgRepeat

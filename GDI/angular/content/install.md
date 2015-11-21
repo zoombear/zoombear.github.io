@@ -8,5 +8,7 @@ bower install angular
 
 npm install http-server -g
 
+http-server
+
 <br>
 <b>Then go to <i>localhost:8080</i> in your browser</b>
