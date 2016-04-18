@@ -1,0 +1,185 @@
+/* Responsive table uses Chris Coyer's Responsive Data Table method found here: https://css-tricks.com/responsive-data-table-roundup/
+*/
+* { 
+	margin: 0; 
+	padding: 0; 
+}
+body { 
+	font: 14px/1.4 "Helvetica Neue", sans-serif; 
+	color: #333;
+	overflow-x: hidden;
+
+}
+p {
+	margin: 20px 0; 
+}
+header {
+	padding: 24px;
+}
+table { 
+	width: 100%; 
+	border-collapse: collapse; 
+}
+
+
+th { 
+	background: #0050a0; 
+	color: white; 
+	font-weight: bold; 
+}
+td, th { 
+	padding: 12px; 
+	border: 1px solid #fff; 
+	text-align: left; 
+}
+@media only screen and (min-width: 761px) {
+	table tr:hover td {
+		background: #12a8e0;
+		cursor: pointer;
+		color: #fff;
+	}
+	tr:nth-of-type(odd) { 
+		background: #eee; 
+	}
+}
+
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+		z-index: -1;
+	}
+
+	tr { border: 1px solid #ccc; }
+
+	td {
+		border: none;
+		border-bottom: 0px solid #eee;
+		position: relative;
+		z-index: -1;
+		padding-left: 38%;
+		font-size: 16px;
+	}
+
+	td:before {
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 12%;
+		padding-right: 40px;
+		white-space: nowrap;
+		font-size: 14px;
+	}
+
+	td:nth-of-type(1):before { content: "Event: "; }
+	td:nth-of-type(2):before { content: "Type: "; }
+	td:nth-of-type(3):before { content: "Date: "; }
+	td:nth-of-type(4):before { content: "Start Time: "; }
+	td:nth-of-type(5):before { content: "End Time: "; }
+	td:nth-of-type(6):before { content: "# Participants: "; }
+	td:nth-of-type(7):before { content: "# Spots Remaining: "; }
+	td:nth-of-type(8):before { content: "Attending?: "; }
+}
+.subtitle {
+	font-size: 18px;
+	margin-top: 0;
+	color: #666;
+}
+#modal {
+    display: none;
+    position: fixed;
+}
+.modal-content-container {
+    position:fixed;
+    left:10%;
+    top:32px;
+    z-index:1000;
+    background: #fff;
+    box-shadow: 0 3px 14px rgba(0,0,0,.2);
+    width: 75%;
+    border-radius: 8px;
+}
+.modal-content {
+	padding: 12px 24px 40px;
+}
+.modal-overlay {
+	background: rgba(0,0,0,.5);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 1000;
+}
+#modalClose {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 18px;
+	padding: 4px 8px 5px;
+	border: 1px solid rgba(255,255,255,.8);
+	border-radius: 4px;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+	background: transparent;
+	line-height: 1;
+	color: rgba(255,255,255,.8);
+	transition: all 200ms;
+}
+#modalClose:hover {
+	background: transparent;
+	border-color: #fff;
+	color: #fff;
+}
+#modalClose:active {
+	background: #EEEEEE;
+}
+
+.map {
+	height: 320px;
+}
+
+.map, .modal-info {
+	width: 48%;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 24px;
+}
+
+.modal-header {
+	background: #12A8E0;
+	color: #fff;
+	padding: 24px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	font-size: 24px;
+}
+.modal-content h2 {
+	font-size: 24px;
+}
+.modal-content h3 {
+	margin-top: 12px;
+}
+.modal-content h4 {
+	color: #666;
+	margin-top: 8px;
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	.modal-content-container {
+		width: 90%;
+		left: 5%;
+		top: 24px;
+		max-height: 90%;
+		overflow-y: scroll;
+	}
+	.map, .modal-info {
+		display: block;
+		width: 100%;
+	}
+}
