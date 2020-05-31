@@ -6,6 +6,8 @@ let used_array = []
 
 function init() {
     const txtOutput = document.getElementById("bingo")
+    const verifyOutput = document.getElementById("verify")
+    verifyOutput.innerHTML = ''
     txtOutput.innerHTML = ''
     working_array.length = 0 // Clear contents
     used_array.length = 0
@@ -29,6 +31,11 @@ function new_item() {
 
 function go_back() {
     const txtOutput = document.getElementById("bingo")
-    console.log(used_array)
     txtOutput.innerHTML = used_array[1]
+}
+
+function verify() {
+    const verifyOutput = document.getElementById("verify")
+    new_text = used_array.join('<br>')
+    verifyOutput.innerHTML = new_text
 }
